@@ -3,6 +3,7 @@ import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backen
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 import { EntityAliasProcessor } from '@internal/plugin-entity-alias-backend';
+import { namespaceRule } from './permission';
 
 export default async function createPlugin(
   env: PluginEnvironment,
@@ -10,6 +11,7 @@ export default async function createPlugin(
   const builder = await CatalogBuilder.create(env);
   builder.addProcessor(new ScaffolderEntitiesProcessor());
   builder.addProcessor(new EntityAliasProcessor(env.reader));
+  builder.addPermissionRules([namespaceRule]);
   const { processingEngine, router } = await builder.build();
   await processingEngine.start();
   return router;

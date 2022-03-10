@@ -5,13 +5,16 @@ app:
 organization:
   name: My Company
 
+permission:
+  enabled: true
+
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
   # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
   # information on the format
-  # auth:
-  #   keys:
-  #     - secret: ${BACKEND_SECRET}
+  auth:
+    keys:
+      - secret: ${BACKEND_SECRET}
   baseUrl: http://localhost:7007
   listen:
     port: 7007
@@ -57,8 +60,16 @@ techdocs:
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
-  providers: {}
-
+  providers: 
+    github:
+      development:
+        clientId: ${GITHUB_CLIENT}
+        clientSecret: ${GITHUB_SECRET}
+    google:
+      development:
+        clientId: ${GOOGLE_CLIENT}
+        clientSecret: ${GOOGLE_SECRET}
+        
 scaffolder:
   # see https://backstage.io/docs/features/software-templates/configuration for software template options
 
